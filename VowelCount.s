@@ -108,7 +108,7 @@ f_count_vowels:
 	add	$s4, $s3, $s2		# Point to last character in reference buffer
 	addi	$s4, $s4, -1		# Prevent off-by-one
 
-check_if_buffer_exceeded:
+f_count_vowels_check_if_buffer_exceeded:
 	blt	$s0, $a0, f_count_vowels_return	# Check if buffer exceeded
 	lb	$s1, 0($s0)		# Load character from buffer
 	addi	$s0, $s0, -1		# Point to previous character in buffer
@@ -118,11 +118,11 @@ check_reference_character:
 	beq	$s1, $s6, f_count_vowels_vowel_found
 	addi	$s5, $s5, -1		# Point to previous character in reference buffer
 	ble	$s2, $s5, check_reference_character # Check if reference buffer exceeded
-	j	check_if_buffer_exceeded
+	j	f_count_vowels_check_if_buffer_exceeded
 
 f_count_vowels_vowel_found:
 	addi	$v0, $v0, 1
-	j	check_if_buffer_exceeded
+	j	f_count_vowels_check_if_buffer_exceeded
 
 f_count_vowels_return:
 	jr	$ra
